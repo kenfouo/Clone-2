@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        ._1AHcd {
+            display: flex;
+        }
+
+        .b7n2qyd4 {
+            padding-top: 12px;
+        }
+
+        .kyc7k6mt {
+            padding-right: 15px;
+        }
+
+        .ekpn4oxx {
+            padding-bottom: 12px;
+        }
+
+        .rn41jex5 {
+            padding-left: 13px;
+        }
+
+        .g0rxnol2 {
+            position: relative;
+        }
+
+        .lniyxyh2 {
+            height: 40px;
+        }
+
+        .qssinsw9 {
+            width: 40px;
+        }
+
+        .kiiy14zj {
+            margin-top: 2px;
+        }
+
+        .nxn8agaf {
+            margin-left: -4px;
+        }
+
+        .kv6wexeh {
+            margin-top: -4px;
+        }
+
+        .lhggkp7q {
+            position: absolute;
+        }
+
+        .j9ny8kmf {
+            stroke: #008069;
+        }
+
+        .i2tfkqu4 {
+            stroke: #bbbec4;
+        }
+
+        .storytellerButton {
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            border: solid #0080001a 1px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: 900;
+        }
+
+        .storytellerMainBtn {
+            width: 100px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .mainStatusStoryteller {
+            padding-top: 25%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="mainStatusStoryteller">
+
+        <div class="_1AHcd" id="mainstatus">
+        </div>
+        </br>
+        </br>
+        Stories
+        <div class="storytellerMainBtn">
+
+            <div class="storytellerButton" id="btnM" style="background-color: #f60b0b;">-</div>
+            <div id="StatusNbIteration">0</div>
+            <div class="storytellerButton" id="btnP" style="background-color: rgb(3, 155, 3);">+</div>
+        </div>
+        <br>
+        Seen
+        <div class="storytellerMainBtn">
+
+            <div class="storytellerButton" id="btnMSeen" style="background-color: #f60b0b;">-</div>
+            <div id="StatusNbIterationSeen">0</div>
+            <div class="storytellerButton" id="btnPSeen" style="background-color: rgb(3, 155, 3);">+</div>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function (mainstatus) {
+            console.log('itemCircle 0');
+
+            var btnP = document.getElementById('btnP');
+            var btnM = document.getElementById('btnM');
+            var mainstatus = document.getElementById('mainstatus');
+            var StatusNbIteration = document.getElementById('StatusNbIteration');
+            var btnMSeen = document.getElementById('btnMSeen');
+            var btnPSeen = document.getElementById('btnPSeen');
+            var StatusNbIterationSeen = document.getElementById('StatusNbIterationSeen');
+            var dashaparam = '';
+            var dashaparamSeen = '';
+            var nb = 0;
+            var nb_Statuts = 0;
+            var NumSeen = 0;
+            var itemCircle = '';
+            var itemCircleSeen = '';
+            var seenSpace = '';
+            var SpaceBetween = 10;
+            var CircleConst = 314.1592653589793; //314.1592653589793
+            var circleItem = '';
+            var strokeDasharray = '';
+            var strokeDasharraySee = '';
+            var strokeDashoffset = '';
+            var count = '';
+            var circleItemSeen = '';
+
+            btnP.onclick = () => {
+                nb_Statuts++;
+                console.log(nb_Statuts);
+                updateStoryteller(mainstatus, nb_Statuts, NumSeen);
+            }
+
+            btnM.onclick = () => {
+                nb_Statuts--;
+                updateStoryteller(mainstatus, nb_Statuts, NumSeen);
+            }
+
+            btnPSeen.onclick = () => {
+                NumSeen++;
+                updateStoryteller(mainstatus, nb_Statuts, NumSeen);
+            }
+
+            btnMSeen.onclick = () => {
+                NumSeen--;
+                updateStoryteller(mainstatus, nb_Statuts, NumSeen);
+            }
+
+            updateStoryteller = (mainstatus_, nb_Statuts_, NumSeen) => {
+                dashaparam = '';
+                StatusNbIteration.textContent = nb_Statuts_;
+                StatusNbIterationSeen.textContent = NumSeen;
+
+                NumSeen > nb_Statuts_ ? nb_Statuts_ = NumSeen : null;
+
+                if (NumSeen == 0) {
+                    if (nb_Statuts_ == 1) {
+                        strokeDasharray = '';
+                    }
+                    else {
+                        itemCircle = (CircleConst / nb_Statuts_) - SpaceBetween;
+
+                        for (let index = 0; index < nb_Statuts_; index++) {
+                            dashaparam += itemCircle + ' 10 ';
+                        }
+                        strokeDasharray = 'stroke-dasharray="' + dashaparam + '"';
+                    }
+
+                    circleItem = '<circle cx="52" cy="52" r="50" fill="none" stroke-linecap="round" class="j9ny8kmf"' +
+                        'stroke-dashoffset="387.69908169872417"' +
+                        strokeDasharray +
+                        'stroke-width="4">' +
+                        '</circle>';
+                    circleItemSeen = '';
+                }
+                else {
+                    console.log('NumSeen--: ' + NumSeen);
+
+                    if (nb_Statuts_ == 1) {
+                        strokeDasharray = '';
+                    }
+                    else {
+                        itemCircle = (CircleConst / nb_Statuts_) - SpaceBetween;
+                        count = nb_Statuts_ - NumSeen;
+
+                        for (let index = 0; index < count; index++) {
+                            index == (count - 1) ? dashaparam += itemCircle + ' ' : dashaparam += itemCircle + ' 10 ';
+                        }
+
+                        //---La proportion des non vues
+                        seenSpace = ((itemCircle + SpaceBetween) * NumSeen);
+
+                        dashaparam += seenSpace + (SpaceBetween);
+
+                        strokeDasharray = 'stroke-dasharray="' + dashaparam + '"';
+
+                        //---La proportion des vues
+                        dashaparamSeen = '';
+                        for (let index = 0; index < NumSeen; index++) {
+                            index == (NumSeen - 1) ? dashaparamSeen += itemCircle + ' ' : dashaparamSeen += itemCircle + ' 10 ';
+                        }
+
+                        // (314.1592653589793 - 127.80972450961724) + 20 
+                        seenSpace = (CircleConst - seenSpace) + SpaceBetween;
+
+                        dashaparamSeen += seenSpace;
+                        strokeDasharraySee = 'stroke-dasharray="' + dashaparamSeen + '"';
+
+                        // (387.69908169872417 - 206.34954084936209) + 10
+                        strokeDashoffset = (387.69908169872417 - seenSpace) + SpaceBetween;
+                    }
+
+                    //---gros segment des vues
+                    circleItem = '';
+                    if (nb_Statuts_ > NumSeen) {
+                        circleItem = '<circle cx="52" cy="52" r="50" fill="none" stroke-linecap="round" class="j9ny8kmf"' +
+                            'stroke-dashoffset="387.69908169872417"' + //387.69908169872417
+                            strokeDasharray +
+                            'stroke-width="4">' +
+                            '</circle>';
+                    }
+
+                    console.log('-------------------------', NumSeen);
+                    //---gros segment des non vues
+                    circleItemSeen = '';
+                    if (NumSeen > 0) {
+                        circleItemSeen = '<circle cx="52" cy="52" r="50" fill="none" stroke-linecap="round" class="i2tfkqu4"' +
+                            'stroke-dashoffset="' + strokeDashoffset + '"' + //191.34954084936209
+                            strokeDasharraySee +
+                            'stroke-width="4"></circle>';
+                    }
+                }
+                console.log('circleItemSeen', circleItemSeen);
+                mainstatus_.innerHTML = '<div role="" class="b7n2qyd4 kyc7k6mt ekpn4oxx rn41jex5 g0rxnol2 lniyxyh2 qssinsw9 kiiy14zj">' +
+                    '<svg class="nxn8agaf kv6wexeh lhggkp7q" width="48" height="48" viewBox="0 0 104 104">' +
+                    circleItem +
+                    circleItemSeen +
+                    '</svg>' +
+                    '<div class="g0rxnol2 g9p5wyxn i0tg5vk9 aoogvgrq o2zu3hjb lniyxyh2 qssinsw9 rx2toazg">' +
+                    '<div class="lhggkp7q t3g6t33p sxl192xd qnwaluaf g9p5wyxn i0tg5vk9 aoogvgrq o2zu3hjb gfz4du6o r7fjleex lniyxyh2 qssinsw9"' +
+                    'style="background-image: url(\'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWXhZMj-M5tUKoiC7FFPlPxtg89VyjXZwry0tIpXYMIw&s\');background-position: center; border-radius: 50%;">' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>';
+            }
+        }
+    </script>
+</body>
+
+</html>
